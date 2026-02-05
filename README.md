@@ -26,18 +26,23 @@ You approve once at step 3. Everything else runs autonomously.
 Sends a plan file to OpenAI Codex for refinement. Catches edge cases, tightens error handling, simplifies where possible. Used by `/dev-workflow` but also useful standalone when you want a second opinion on any plan.
 
 ```
+/plan-refine-codex
+
+# or target a specific file
 /plan-refine-codex .claude/plans/my-plan.md
 ```
 
 ### `/roborev-review`
 
-AI-powered code review via [roborev](https://github.com/machow/roborev). Reviews HEAD, uncommitted changes, a branch, or a specific commit.
+AI-powered code review via [roborev](https://github.com/machow/roborev). Reviews your changes — the agent figures out the right target (HEAD, dirty, branch) based on context.
 
 ```
-/roborev-review          # review HEAD
-/roborev-review dirty    # review uncommitted changes
-/roborev-review branch   # review all commits since main
-/roborev-review abc123   # review a specific commit
+/roborev-review
+
+# or be explicit about what to review
+/roborev-review dirty    # uncommitted changes
+/roborev-review branch   # all commits since main
+/roborev-review abc123   # a specific commit
 ```
 
 ## Other skills
