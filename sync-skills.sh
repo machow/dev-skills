@@ -22,6 +22,22 @@ synced=0
 skipped=0
 errors=0
 
+# Build list of skill dirs to sync
+if [[ $# -gt 0 ]]; then
+    skill_dirs=()
+    for arg in "$@"; do
+        dir="$SCRIPT_DIR/$arg/"
+        if [[ -d "$dir" ]]; then
+            skill_dirs+=("$dir")
+        else
+            echo "ERROR: $arg (not found)"
+            ((errors++))
+        fi
+    done
+else
+    skill_dirs=("$SCRIPT_DIR"/*/)
+fi
+
 # Create target directory if it doesn't exist
 if ! mkdir -p "$TARGET_DIR" 2>/dev/null; then
     echo "ERROR: Cannot create target directory $TARGET_DIR"
@@ -29,7 +45,7 @@ if ! mkdir -p "$TARGET_DIR" 2>/dev/null; then
 fi
 
 # Find and copy skill folders (folders containing SKILL.md)
-for item in "$SCRIPT_DIR"/*/; do
+for item in "${skill_dirs[@]}"; do
     [[ ! -d "$item" ]] && continue
 
     skill_name=$(basename "$item")
