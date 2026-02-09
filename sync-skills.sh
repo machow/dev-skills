@@ -26,6 +26,12 @@ errors=0
 if [[ $# -gt 0 ]]; then
     skill_dirs=()
     for arg in "$@"; do
+        # Reject path traversal (slashes, ..)
+        if [[ "$arg" == */* || "$arg" == ".." || "$arg" == "." ]]; then
+            echo "ERROR: $arg (invalid name)"
+            ((errors++))
+            continue
+        fi
         dir="$SCRIPT_DIR/$arg/"
         if [[ -d "$dir" ]]; then
             skill_dirs+=("$dir")
