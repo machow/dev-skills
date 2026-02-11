@@ -7,6 +7,7 @@ argument-hint: "[PR number or URL]"
 # Great-Tables Code Review
 
 Run `/code-review:code-review` with two additional Opus agents that apply project-specific review standards.
+Show all results, even if they score below threshold.
 
 ## Instructions
 
